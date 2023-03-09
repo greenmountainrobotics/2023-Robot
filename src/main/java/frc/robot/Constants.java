@@ -4,12 +4,6 @@
 
 package frc.robot;
 
-import edu.wpi.first.math.kinematics.DifferentialDriveKinematics;
-import edu.wpi.first.math.numbers.N2;
-import edu.wpi.first.math.system.LinearSystem;
-import edu.wpi.first.math.system.plant.DCMotor;
-import edu.wpi.first.math.system.plant.LinearSystemId;
-
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
  * constants. This class should not be used for any other purpose. All constants should be declared
@@ -20,16 +14,20 @@ import edu.wpi.first.math.system.plant.LinearSystemId;
  */
 public final class Constants {
   public static final class DriveConstants {
-    public static final int kLeftMotor1Port = 0;
-    public static final int kLeftMotor2Port = 1;
-    public static final int kRightMotor1Port = 2;
-    public static final int kRightMotor2Port = 3;
+    public static final int LEFT_MOTOR_1_ID = 3;
+    public static final int LEFT_MOTOR_2_ID = 4;
+    public static final int RIGHT_MOTOR_1_ID = 1;
+    public static final int RIGHT_MOTOR_2_ID = 2;
 
-    public static final double kMaxSpeed = 1.0;
+    public static final int LEFT_SERVO_PORT = 0;
+    public static final int RIGHT_SERVO_PORT = 1;
+
+    public static final double MAX_SPEED = 1.0;
   }
 
   public static final class OIConstants {
-    public static final int kDriverControllerPort = 0;
+    public static final int DRIVER_CONTROLLER_PORT = 0;
+    public static final int OPERATOR_CONTROLLER_PORT = 1;
   }
 
   public static final class AutoConstants {

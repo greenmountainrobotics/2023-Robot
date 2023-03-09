@@ -11,41 +11,62 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.TankDriveSubsystem;
 import static frc.robot.Constants.DriveConstants.*;
 
-import static frc.robot.Constants.OIConstants.kDriverControllerPort;
-
-/** An example command that uses an example subsystem. */
 public class JoystickDriveCommand extends CommandBase {
     @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
-    private final TankDriveSubsystem m_robotDrive;
-    private final CommandJoystick m_joystick;
+    private final TankDriveSubsystem robotDrive;
+    private final CommandJoystick joystick;
 
-    public JoystickDriveCommand(TankDriveSubsystem subsystem, CommandJoystick commandJoystick) {
-        m_robotDrive = subsystem;
-        m_joystick = commandJoystick;
-        addRequirements(subsystem);
+    public JoystickDriveCommand(TankDriveSubsystem robotDrive, CommandJoystick commandJoystick) {
+        this.robotDrive = robotDrive;
+        joystick = commandJoystick;
+        addRequirements(robotDrive);
+    }
+
+    @Override
+    public void initialize() {
+        SmartDashboard.putNumber("Max Speed (dashboard)", 1.0);
+    }
+
+    private double getMaxSpeed() {
+        /* return ((-joystick.getRawAxis(3) + 1) / 2)
+                * */ return MAX_SPEED
+                * SmartDashboard.getNumber("Max Speed (dashboard)", 1.0);
     }
 
     private double powerCurve(double input) {
         return (input > 0 ? 1 : -1) *
                 input * input
-               // * (m_joystick.getRawAxis(3) < 0 ? 1 : 0.5)
-                * ((-m_joystick.getRawAxis(3) + 1) / 2)
-                * kMaxSpeed;
+               * getMaxSpeed();
     }
 
     @Override
     public void execute() {
         var speed = DifferentialDrive.arcadeDriveIK(
                 powerCurve(
-                        Math.abs(m_joystick.getRawAxis(1)) > 0.1 ? m_joystick.getRawAxis(1) : 0),
+                        Math.abs(joystick.getRawAxis(1)) > 0.1 ? joystick.getRawAxis(1) : 0),
                 //powerCurve(
-                 //       Math.abs(m_joystick.getRawAxis(2)) > 0.2 ? m_joystick.getRawAxis(2) : 0),
+                 //       Math.abs(joystick.getRawAxis(2)) > 0.2 ? joystick.getRawAxis(2) : 0),
                 powerCurve(
-                        Math.abs(m_joystick.getRawAxis(0)) > 0.1 ? m_joystick.getRawAxis(0) : 0),
+                        Math.abs(joystick.getRawAxis(0)) > 0.1 ? joystick.getRawAxis(0) : 0),
                 false);
-        m_robotDrive.setSpeed(
-                speed.right,
-                speed.left
-        );
+
+        boolean forward = true; // joystick.getRawAxis(3) < 0;
+
+        if (forward) {
+            robotDrive.setSpeed(
+                    speed.right,
+                    speed.left
+            );
+        } else {
+            robotDrive.setSpeed(
+                    -speed.left,
+                    -speed.right
+            );
+        }
+
+        SmartDashboard.putBoolean("Forward", forward);
+        SmartDashboard.putNumber("Max Speed (slider)", (-joystick.getRawAxis(3) + 1) / 2);
+        SmartDashboard.putNumber("X axis", Math.abs(joystick.getRawAxis(1)) > 0.1 ? joystick.getRawAxis(1) : 0);
+        SmartDashboard.putNumber("Y axis", Math.abs(joystick.getRawAxis(0)) > 0.1 ? joystick.getRawAxis(0) : 0);
     }
 }
