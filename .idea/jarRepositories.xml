@@ -46,5 +46,10 @@
       <option name="name" value="WPIcb311d09-36e9-4143-a032-55bb2b94443b_0Release" />
       <option name="url" value="https://dev.studica.com/maven/release/2023/" />
     </remote-repository>
+    <remote-repository>
+      <option name="id" value="WPIab676553-b602-441f-a38d-f1296eff6537_0Release" />
+      <option name="name" value="WPIab676553-b602-441f-a38d-f1296eff6537_0Release" />
+      <option name="url" value="https://maven.ctr-electronics.com/release/" />
+    </remote-repository>
   </component>
 </project>

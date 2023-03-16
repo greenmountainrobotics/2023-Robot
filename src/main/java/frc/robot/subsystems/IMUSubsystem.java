@@ -33,5 +33,17 @@ public class IMUSubsystem extends SubsystemBase {
             prevTime = System.currentTimeMillis();
         }));
     }
+
+    public double getYaw() {
+        return ahrs.getYaw();
+    }
+
+    public double getRoll() {
+        return ahrs.getRoll();
+    }
+
+    public double getPitch() {
+        return ahrs.getPitch();
+    }
 }
 
