@@ -4,7 +4,7 @@ import edu.wpi.first.wpilibj2.command.*;
 import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.commands.JoystickDriveCommand;
-import frc.robot.commands.WeekZeroAutoCommand;
+import frc.robot.commands.BalanceCommand;
 import frc.robot.subsystems.IMUSubsystem;
 import frc.robot.subsystems.TankDriveSubsystem;
 import frc.robot.subsystems.WeekZeroGrabberSubsystem;
@@ -34,6 +34,6 @@ public class RobotContainer {
   }
   public Command getAutonomousCommand() {
     // return new WeekZeroAutoCommand(robotDrive);
-    return new WeekZeroAutoCommand(robotDrive);
+    return new BalanceCommand(imu, robotDrive);
   }
 }

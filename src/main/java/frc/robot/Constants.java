@@ -34,5 +34,8 @@ public final class Constants {
     public static final double kP = 1.0;
     public static final double kI = 1.0;
     public static final double kD = 1.0;
+    public static final double ANGLESTOP = 0.5;
+    public static final long MOVEMENT_TIME = 2000;
+    public static final long SHOOTING_TIME = 1000;
   }
 }
