@@ -26,6 +26,7 @@ public final class Constants {
     public static final int RIGHT_SERVO_PORT = 1;
 
     public static final double MAX_SPEED = 1.0;
+    public static final double MAX_SPEED_INTAKE = 1.0;
   }
 
   public static final class OIConstants {

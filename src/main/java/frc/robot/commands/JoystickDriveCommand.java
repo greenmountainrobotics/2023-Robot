@@ -12,7 +12,7 @@ import frc.robot.subsystems.TankDriveSubsystem;
 import static frc.robot.Constants.DriveConstants.*;
 
 public class JoystickDriveCommand extends CommandBase {
-    @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
+    @SuppressWarnings({ "PMD.UnusedPrivateField", "PMD.SingularField" })
     private final TankDriveSubsystem robotDrive;
     private final CommandJoystick joystick;
 
@@ -28,15 +28,16 @@ public class JoystickDriveCommand extends CommandBase {
     }
 
     private double getMaxSpeed() {
-        /* return ((-joystick.getRawAxis(3) + 1) / 2)
-                * */ return MAX_SPEED
+        /*
+         * return ((-joystick.getRawAxis(3) + 1) / 2)
+         */ return MAX_SPEED
                 * SmartDashboard.getNumber("Max Speed (dashboard)", 1.0);
     }
 
     private double powerCurve(double input) {
         return (input > 0 ? 1 : -1) *
                 input * input
-               * getMaxSpeed();
+                * getMaxSpeed();
     }
 
     @Override
@@ -44,8 +45,8 @@ public class JoystickDriveCommand extends CommandBase {
         var speed = DifferentialDrive.arcadeDriveIK(
                 powerCurve(
                         Math.abs(joystick.getRawAxis(1)) > 0.1 ? joystick.getRawAxis(1) : 0),
-                //powerCurve(
-                 //       Math.abs(joystick.getRawAxis(2)) > 0.2 ? joystick.getRawAxis(2) : 0),
+                // powerCurve(
+                // Math.abs(joystick.getRawAxis(2)) > 0.2 ? joystick.getRawAxis(2) : 0),
                 powerCurve(
                         Math.abs(joystick.getRawAxis(0)) > 0.1 ? joystick.getRawAxis(0) : 0),
                 false);
@@ -55,13 +56,11 @@ public class JoystickDriveCommand extends CommandBase {
         if (forward) {
             robotDrive.setSpeed(
                     speed.right,
-                    speed.left
-            );
+                    speed.left);
         } else {
             robotDrive.setSpeed(
                     -speed.left,
-                    -speed.right
-            );
+                    -speed.right);
         }
 
         SmartDashboard.putBoolean("Forward", forward);
