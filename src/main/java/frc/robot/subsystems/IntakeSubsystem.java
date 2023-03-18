@@ -1,14 +1,23 @@
 package frc.robot.subsystems;
 
 
+import com.ctre.phoenix.motorcontrol.VictorSPXControlMode;
+import com.ctre.phoenix.motorcontrol.can.VictorSPX;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
+import static frc.robot.Constants.DriveConstants.*;
+
 public class IntakeSubsystem extends SubsystemBase {
+
+    private final VictorSPX rightMotor = new VictorSPX(RIGHT_INTAKE_ID);
+    private final VictorSPX leftMotor = new VictorSPX(LEFT_INTAKE_ID);
+
+    private double speed = 0.0;
+
     public IntakeSubsystem() {
-        // TODO: Set the default command, if any, for this subsystem by calling setDefaultCommand(command)
-        //       in the constructor or in the robot coordination class, such as RobotContainer.
-        //       Also, you can call addChild(name, sendableChild) to associate sendables with the subsystem
-        //       such as SpeedControllers, Encoders, DigitalInputs, etc.
+        // TODO: check if we need to switch this
+        rightMotor.setInverted(true);
     }
 
     /**
@@ -17,14 +26,21 @@ public class IntakeSubsystem extends SubsystemBase {
      * @param speed
      * value between -1.0 (in) and 1.0 (out)
      */
-    public void setMotors(double speed) {
-        // TODO
-
+    public void setSpeed(double speed) {
+        this.speed = speed;
     }
 
     public double getSpeed() {
-        // TODO
-        return 0.0;
+        return speed;
+    }
+
+    @Override
+    public void periodic() {
+        rightMotor.set(VictorSPXControlMode.PercentOutput, speed);
+        leftMotor.set(VictorSPXControlMode.PercentOutput, speed);
+
+        SmartDashboard.putNumber("Intake speed", speed);
+        speed = SmartDashboard.getNumber("Intake speed", 0.0);
     }
 }
 

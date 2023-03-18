@@ -31,7 +31,7 @@ public class AutoScoreCommand extends CommandBase {
             tankDriveSubsystem.setSpeed(-0.5, -0.5);
         }
         else {
-            intakeSubsystem.setMotors(1.0);
+            intakeSubsystem.setSpeed(1.0);
         }
     }
 
@@ -42,6 +42,6 @@ public class AutoScoreCommand extends CommandBase {
 
     @Override
     public void end(boolean interrupted) {
-        intakeSubsystem.setMotors(0.0);
+        intakeSubsystem.setSpeed(0.0);
     }
 }

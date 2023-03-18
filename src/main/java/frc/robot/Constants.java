@@ -19,6 +19,9 @@ public final class Constants {
     public static final int RIGHT_MOTOR_1_ID = 1;
     public static final int RIGHT_MOTOR_2_ID = 2;
 
+    public static final int RIGHT_INTAKE_ID = 5;
+    public static final int LEFT_INTAKE_ID = 6;
+
     public static final int LEFT_SERVO_PORT = 0;
     public static final int RIGHT_SERVO_PORT = 1;
 

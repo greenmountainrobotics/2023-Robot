@@ -28,19 +28,33 @@ public class TankDriveSubsystem extends SubsystemBase {
 
     private final DifferentialDrive drive = new DifferentialDrive(leftMotors, rightMotors);
 
+    private double rightSpeed = 0.0;
+    private double leftSpeed = 0.0;
+
 
     public TankDriveSubsystem() {
         rightMotors.setInverted(true);
     }
 
     public void setSpeed(double right, double left) {
-        rightMotors.set(right);
-        leftMotors.set(left);
-        drive.feed();
+        rightSpeed = right;
+        leftSpeed = left;
+    }
+
+    public double getLeftSpeed() {
+        return leftSpeed;
+    }
+
+    public double getRightSpeed() {
+        return rightSpeed;
     }
 
     public void periodic() {
-        SmartDashboard.putNumber("Right Motors", rightMotors.get());
-        SmartDashboard.putNumber("Left Motors", leftMotors.get());
+        rightMotors.set(rightSpeed);
+        leftMotors.set(leftSpeed);
+        drive.feed();
+
+        SmartDashboard.putNumber("Right Motors", rightSpeed);
+        SmartDashboard.putNumber("Left Motors", leftSpeed);
     }
 }
