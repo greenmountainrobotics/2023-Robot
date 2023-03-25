@@ -11,6 +11,7 @@ import frc.robot.subsystems.TankDriveSubsystem;
 
 import static frc.robot.Constants.AutoConstants.kD;
 import static frc.robot.Constants.AutoConstants.kP;
+import static frc.robot.Constants.AutoConstants.AUTOROBOTSPEED;
 import static frc.robot.Constants.OIConstants.*;
 
 public class RobotContainer {
@@ -24,6 +25,7 @@ public class RobotContainer {
   public RobotContainer() {
       SmartDashboard.putNumber("Kp", kP);
       SmartDashboard.putNumber("Kd", kD);
+      SmartDashboard.putNumber("AutoSpeedBalance", AUTOROBOTSPEED);
 
     robotDrive.setDefaultCommand(new ParallelCommandGroup(new JoystickDriveCommand(robotDrive, joystick), new IntakeCommand(intaksubsystem, controller)));
 /*            new RunCommand(() -> {
@@ -40,6 +42,6 @@ public class RobotContainer {
 
   public Command getAutonomousCommand() {
     // return new WeekZeroAutoCommand(robotDrive);
-    return new RunCommand(() -> {});// AutoCommandGroup(imu, robotDrive, intaksubsystem);
+    return new AutoCommandGroup(imu, robotDrive, intaksubsystem, imu.getYaw());
   }
 }
