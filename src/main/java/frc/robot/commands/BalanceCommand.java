@@ -6,6 +6,7 @@ package frc.robot.commands;
 
 import static frc.robot.Constants.AutoConstants.*;
 
+import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.subsystems.IMUSubsystem;
 import frc.robot.subsystems.TankDriveSubsystem;
@@ -29,13 +30,13 @@ public class BalanceCommand extends CommandBase {
     @Override
     public void initialize() {
         setpoint = imu.getYaw();
-        pid.setIntegratorRange(-0.5, 0.5);
+        pid.setPID(SmartDashboard.getNumber("Kp", kP), kI, SmartDashboard.getNumber("Kd", kD));
     }
 
 
     @Override
     public void execute() {
-        double num = pid.calculate(imu.getYaw(), setpoint);
+        double num = MathUtil.clamp(pid.calculate(imu.getYaw(), setpoint), -0.5, 0.5);
         motor.setSpeed(num, num);
         SmartDashboard.putNumber("PID Balance Move val:", num);
     }

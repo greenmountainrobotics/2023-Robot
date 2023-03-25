@@ -6,6 +6,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
 import frc.robot.subsystems.IntakeSubsystem;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
@@ -24,11 +25,20 @@ public class IntakeCommand extends CommandBase {
 
     @Override
     public void initialize() {
-        SmartDashboard.putNumber("Max Speed Intake (dashboard)", 1.0);
+        SmartDashboard.putNumber("Max Speed Intake (dashboard)", 0.4);
+        SmartDashboard.putNumber("Max Speed Outtake (dashboard)", 0.8);
+
     }
 
 
-    private double getMaxSpeed() {
+    private double getOutMaxSpeed() {
+        /*
+         * return ((-joystick.getRawAxis(3) + 1) / 2)
+         */ return MAX_SPEED_INTAKE
+                * SmartDashboard.getNumber("Max Speed Outtake (dashboard)", 1.0);
+    }
+
+    private double getInMaxSpeed() {
         /*
          * return ((-joystick.getRawAxis(3) + 1) / 2)
          */ return MAX_SPEED_INTAKE
@@ -37,16 +47,23 @@ public class IntakeCommand extends CommandBase {
 
     private double powerCurve(double input) {
         return (input > 0 ? 1 : -1) *
-                input * input
-                * getMaxSpeed();
+                input * input;
     }
 
     @Override
     public void execute() {
+        var controllerY = controller.getLeftY();
 
-        var speed = powerCurve(Math.abs(controller.getLeftY()) > 0.1 ? controller.getLeftY() : 0);
+        SmartDashboard.putNumber("controller", controllerY);
+
+        if (Math.abs(controllerY) < 0.5) {
+            intake.setSpeed(0);
+            return;
+        }
+
+        var speed = (controllerY > 0 ? getInMaxSpeed() : getOutMaxSpeed()) *
+                powerCurve(controllerY);
+
         intake.setSpeed(speed);
-
-        SmartDashboard.putNumber("Y axis", Math.abs(controller.getLeftY()) > 0.1 ? controller.getLeftY() : 0);
     }
 }

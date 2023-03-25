@@ -1,15 +1,16 @@
 package frc.robot;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.*;
 import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
-import frc.robot.commands.JoystickDriveCommand;
-import frc.robot.commands.IntakeCommand;
+import frc.robot.commands.*;
 import frc.robot.subsystems.IntakeSubsystem;
-import frc.robot.commands.BalanceCommand;
 import frc.robot.subsystems.IMUSubsystem;
 import frc.robot.subsystems.TankDriveSubsystem;
 
+import static frc.robot.Constants.AutoConstants.kD;
+import static frc.robot.Constants.AutoConstants.kP;
 import static frc.robot.Constants.OIConstants.*;
 
 public class RobotContainer {
@@ -21,11 +22,24 @@ public class RobotContainer {
   private final IMUSubsystem imu = new IMUSubsystem();
 
   public RobotContainer() {
+      SmartDashboard.putNumber("Kp", kP);
+      SmartDashboard.putNumber("Kd", kD);
+
     robotDrive.setDefaultCommand(new ParallelCommandGroup(new JoystickDriveCommand(robotDrive, joystick), new IntakeCommand(intaksubsystem, controller)));
+/*            new RunCommand(() -> {
+              if (joystick.button(1).getAsBoolean()) {
+                intaksubsystem.setSpeed(-0.5);
+              } else if (joystick.button(2).getAsBoolean()) {
+                intaksubsystem.setSpeed(0.3);
+              } else {
+                intaksubsystem.setSpeed(0.0);
+              }
+            }, intaksubsystem))*/
+
   }
 
   public Command getAutonomousCommand() {
     // return new WeekZeroAutoCommand(robotDrive);
-    return new BalanceCommand(imu, robotDrive);
+    return new RunCommand(() -> {});// AutoCommandGroup(imu, robotDrive, intaksubsystem);
   }
 }

@@ -1,5 +1,6 @@
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.TankDriveSubsystem;
@@ -21,7 +22,7 @@ public class AutoScoreCommand extends CommandBase {
 
     @Override
     public void initialize() {
-        tankDriveSubsystem.setSpeed(0.5, 0.5);
+        tankDriveSubsystem.setSpeed(-0.5, -0.5);
         startTime = Clock.systemUTC().instant().toEpochMilli();
     }
 
@@ -31,13 +32,14 @@ public class AutoScoreCommand extends CommandBase {
             tankDriveSubsystem.setSpeed(-0.5, -0.5);
         }
         else {
+            tankDriveSubsystem.setSpeed(0,0);
             intakeSubsystem.setSpeed(1.0);
         }
     }
 
     @Override
     public boolean isFinished() {
-        return Clock.systemUTC().instant().toEpochMilli() - (MOVEMENT_TIME - SHOOTING_TIME) > startTime;
+        return Clock.systemUTC().instant().toEpochMilli() - (MOVEMENT_TIME + SHOOTING_TIME) > startTime;
     }
 
     @Override

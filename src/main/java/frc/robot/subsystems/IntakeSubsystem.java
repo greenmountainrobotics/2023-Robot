@@ -16,9 +16,7 @@ public class IntakeSubsystem extends SubsystemBase {
     private double speed = 0.0;
 
     public IntakeSubsystem() {
-        // TODO: check if we need to switch this
-        rightMotor.setInverted(true);
-    }
+        }
 
     /**
      * set speed of intake motors
