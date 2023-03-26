@@ -45,11 +45,11 @@ public class RobotContainer {
 
   public Command getAutonomousCommand() {
     // return new WeekZeroAutoCommand(robotDrive);
-      //if (SmartDashboard.getBoolean("Auto", true))
-          return new AutoCommandGroup(imu, robotDrive, intaksubsystem, imu.getYaw());
-      //else
+      if (SmartDashboard.getBoolean("Auto", true))
+          return new AutoCommandGroup(imu, robotDrive, intaksubsystem, imu.getRoll());
+      else
       //    return new AutoScoreCommand(intaksubsystem, robotDrive);
       //return new NewBalanceCommand(imu, robotDrive, roll);
-      //return new SequentialCommandGroup(new AutoScoreCommand(intaksubsystem, robotDrive), new RunCommand(() -> robotDrive.setSpeed(0.3, 0.3), robotDrive).withTimeout(4));
+      return new SequentialCommandGroup(new AutoScoreCommand(intaksubsystem, robotDrive), new RunCommand(() -> robotDrive.setSpeed(0.3, 0.3), robotDrive).withTimeout(4));
   }
 }
