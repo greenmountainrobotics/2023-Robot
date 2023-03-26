@@ -33,7 +33,7 @@ public class Robot extends TimedRobot {
     UsbCamera camera = CameraServer.startAutomaticCapture();
     //camera.setResolution(160, 120);
 
-    autonomousCommand = robotContainer.getAutonomousCommand();
+
   }
 
   /**
@@ -62,6 +62,7 @@ public class Robot extends TimedRobot {
   /** This autonomous runs the autonomous command selected by your {@link RobotContainer} class. */
   @Override
   public void autonomousInit() {
+    autonomousCommand = robotContainer.getAutonomousCommand();
 
     // schedule the autonomous command (example)
     if (autonomousCommand != null) {

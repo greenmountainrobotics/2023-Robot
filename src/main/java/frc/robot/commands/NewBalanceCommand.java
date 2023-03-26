@@ -7,7 +7,6 @@ package frc.robot.commands;
 
 import static frc.robot.Constants.AutoConstants.*;
 
-import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.subsystems.IMUSubsystem;
 import frc.robot.subsystems.TankDriveSubsystem;
@@ -33,12 +32,14 @@ public class NewBalanceCommand extends CommandBase {
 
     @Override
     public void execute() {
-        motor.setSpeed(SmartDashboard.getNumber("AutoSpeedBalance", AUTOROBOTSPEED), SmartDashboard.getNumber("AutoSpeedBalance", AUTOROBOTSPEED));
+        var robotSpeed = SmartDashboard.getNumber("AutoSpeedBalance", AUTOROBOTSPEED);
+        motor.setSpeed(robotSpeed, robotSpeed);
+        SmartDashboard.putNumber("setpoint", setpoint);
     }
 
     @Override
     public boolean isFinished() {
-        return setpoint == imu.getYaw();
+        return imu.getRoll() < setpoint + ANGLE_ACCEPTED_ERROR && imu.getRoll() > setpoint - ANGLE_ACCEPTED_ERROR;
     }
 
     @Override

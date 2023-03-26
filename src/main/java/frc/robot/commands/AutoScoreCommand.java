@@ -22,24 +22,17 @@ public class AutoScoreCommand extends CommandBase {
 
     @Override
     public void initialize() {
-        tankDriveSubsystem.setSpeed(-0.5, -0.5);
         startTime = Clock.systemUTC().instant().toEpochMilli();
     }
 
     @Override
     public void execute() {
-        if (Clock.systemUTC().instant().toEpochMilli() - MOVEMENT_TIME < startTime) {
-            tankDriveSubsystem.setSpeed(-0.5, -0.5);
-        }
-        else {
-            tankDriveSubsystem.setSpeed(0,0);
-            intakeSubsystem.setSpeed(1.0);
-        }
+            intakeSubsystem.setSpeed(-0.4);
     }
 
     @Override
     public boolean isFinished() {
-        return Clock.systemUTC().instant().toEpochMilli() - (MOVEMENT_TIME + SHOOTING_TIME) > startTime;
+        return Clock.systemUTC().instant().toEpochMilli() - (SHOOTING_TIME) > startTime;
     }
 
     @Override

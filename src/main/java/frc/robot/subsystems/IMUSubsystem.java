@@ -16,22 +16,7 @@ public class IMUSubsystem extends SubsystemBase {
     public IMUSubsystem() {
         prevTime = 0;
 
-        ahrs.resetDisplacement();
-
-        this.setDefaultCommand(run(() -> {
-
-            SmartDashboard.putBoolean(  "IMU_Connected",        ahrs.isConnected());
-            SmartDashboard.putBoolean(  "IMU_IsCalibrating",    ahrs.isCalibrating());
-            SmartDashboard.putNumber(   "IMU_Yaw",              ahrs.getYaw());
-            SmartDashboard.putNumber(   "IMU_Pitch",            ahrs.getPitch());
-            SmartDashboard.putNumber(   "IMU_Roll", ahrs.getRoll());
-            SmartDashboard.putNumber(   "Time Delta", System.currentTimeMillis() -prevTime);
-            SmartDashboard.putNumber("Velocity", ahrs.getVelocityX());
-            SmartDashboard.putNumber("Acceleration", ahrs.getWorldLinearAccelX());
-            SmartDashboard.putNumber("Displacement", ahrs.getDisplacementX());
-
-            prevTime = System.currentTimeMillis();
-        }));
+        ahrs.reset();
     }
 
     public double getYaw() {
@@ -44,6 +29,21 @@ public class IMUSubsystem extends SubsystemBase {
 
     public double getPitch() {
         return ahrs.getPitch();
+    }
+
+    @Override
+    public void periodic() {
+        SmartDashboard.putBoolean(  "IMU_Connected",        ahrs.isConnected());
+        SmartDashboard.putBoolean(  "IMU_IsCalibrating",    ahrs.isCalibrating());
+        SmartDashboard.putNumber(   "IMU_Yaw",              ahrs.getYaw());
+        SmartDashboard.putNumber(   "IMU_Pitch",            ahrs.getPitch());
+        SmartDashboard.putNumber(   "IMU_Roll", ahrs.getRoll());
+        SmartDashboard.putNumber(   "Time Delta", System.currentTimeMillis() -prevTime);
+        SmartDashboard.putNumber("Velocity", ahrs.getVelocityX());
+        SmartDashboard.putNumber("Acceleration", ahrs.getWorldLinearAccelX());
+        SmartDashboard.putNumber("Displacement", ahrs.getDisplacementX());
+
+        prevTime = System.currentTimeMillis();
     }
 }
 

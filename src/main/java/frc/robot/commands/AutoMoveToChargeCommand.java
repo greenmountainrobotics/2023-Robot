@@ -1,5 +1,6 @@
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.IMUSubsystem;
 import frc.robot.subsystems.TankDriveSubsystem;
@@ -21,7 +22,8 @@ public class AutoMoveToChargeCommand extends CommandBase {
 
     @Override
     public void initialize() {
-        initialAngle = iMUSubsystem.getYaw();
+        initialAngle = iMUSubsystem.getRoll();
+        SmartDashboard.putBoolean("AutoMoveToCharge", true);
     }
 
     @Override
@@ -31,11 +33,12 @@ public class AutoMoveToChargeCommand extends CommandBase {
 
     @Override
     public boolean isFinished() {
-        return iMUSubsystem.getYaw() > initialAngle + ANGLESTOP;
+        return iMUSubsystem.getRoll() < initialAngle - ANGLESTOP;
     }
 
     @Override
     public void end(boolean interrupted) {
         tankDriveSubsystem.setSpeed(0.0, 0.0);
+        SmartDashboard.putBoolean("AutoMoveToCharge", false);
     }
 }

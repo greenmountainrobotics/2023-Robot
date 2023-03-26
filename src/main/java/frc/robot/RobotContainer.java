@@ -9,9 +9,7 @@ import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.IMUSubsystem;
 import frc.robot.subsystems.TankDriveSubsystem;
 
-import static frc.robot.Constants.AutoConstants.kD;
-import static frc.robot.Constants.AutoConstants.kP;
-import static frc.robot.Constants.AutoConstants.AUTOROBOTSPEED;
+import static frc.robot.Constants.AutoConstants.*;
 import static frc.robot.Constants.OIConstants.*;
 
 public class RobotContainer {
@@ -22,10 +20,15 @@ public class RobotContainer {
   private final CommandXboxController controller = new CommandXboxController(OPERATOR_CONTROLLER_PORT);
   private final IMUSubsystem imu = new IMUSubsystem();
 
+  private double roll;
+
   public RobotContainer() {
       SmartDashboard.putNumber("Kp", kP);
       SmartDashboard.putNumber("Kd", kD);
+      SmartDashboard.putNumber("kI", kI);
       SmartDashboard.putNumber("AutoSpeedBalance", AUTOROBOTSPEED);
+      SmartDashboard.putBoolean("Auto", true);
+      roll = imu.getRoll();
 
     robotDrive.setDefaultCommand(new ParallelCommandGroup(new JoystickDriveCommand(robotDrive, joystick), new IntakeCommand(intaksubsystem, controller)));
 /*            new RunCommand(() -> {
@@ -42,6 +45,11 @@ public class RobotContainer {
 
   public Command getAutonomousCommand() {
     // return new WeekZeroAutoCommand(robotDrive);
-    return new AutoCommandGroup(imu, robotDrive, intaksubsystem, imu.getYaw());
+      //if (SmartDashboard.getBoolean("Auto", true))
+          return new AutoCommandGroup(imu, robotDrive, intaksubsystem, imu.getYaw());
+      //else
+      //    return new AutoScoreCommand(intaksubsystem, robotDrive);
+      //return new NewBalanceCommand(imu, robotDrive, roll);
+      //return new SequentialCommandGroup(new AutoScoreCommand(intaksubsystem, robotDrive), new RunCommand(() -> robotDrive.setSpeed(0.3, 0.3), robotDrive).withTimeout(4));
   }
 }
