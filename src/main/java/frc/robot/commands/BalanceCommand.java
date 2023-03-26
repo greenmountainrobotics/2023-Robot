@@ -50,11 +50,11 @@ public class BalanceCommand extends CommandBase {
         Thread.sleep(500);
         }
         catch (InterruptedException e) {}
-        boolean isgooderror = Math.abs(pid.getPositionError()) < 5;
 
+        boolean isgooderror = Math.abs(pid.getPositionError()) < 5;
         if (isgooderror) {
             count++;
-            done = count < 5;
+            done = count > 5;
         }
         else {
             count = 0;
