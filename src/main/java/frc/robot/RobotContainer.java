@@ -50,6 +50,6 @@ public class RobotContainer {
       else
       //    return new AutoScoreCommand(intaksubsystem, robotDrive);
       //return new NewBalanceCommand(imu, robotDrive, roll);
-      return new SequentialCommandGroup(new AutoScoreCommand(intaksubsystem, robotDrive), new RunCommand(() -> robotDrive.setSpeed(0.3, 0.3), robotDrive).withTimeout(4));
+        return new SequentialCommandGroup(new AutoScoreCommand(intaksubsystem, robotDrive), new RunCommand(() -> robotDrive.setSpeed(0.3, 0.3), robotDrive).withTimeout(3));
   }
 }

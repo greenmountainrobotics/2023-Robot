@@ -30,7 +30,7 @@ public class AutoMovePastChargeCommand extends CommandBase {
     @Override
     public void execute() {
         tankDriveSubsystem.setSpeed(0.3, 0.3);
-        if (iMUSubsystem.getRoll() < initialAngle + 1 && iMUSubsystem.getRoll() > initialAngle - 1) {
+        if (iMUSubsystem.getRoll() < initialAngle + 2 && iMUSubsystem.getRoll() > initialAngle - 2) {
             count++;
         } else {
             count = 0;
@@ -40,7 +40,7 @@ public class AutoMovePastChargeCommand extends CommandBase {
 
     @Override
     public boolean isFinished() {
-        return count > 25;
+        return count > 15;
     }
 
     @Override
