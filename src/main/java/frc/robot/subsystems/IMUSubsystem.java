@@ -13,6 +13,8 @@ public class IMUSubsystem extends SubsystemBase {
     private final AHRS ahrs = new AHRS(SPI.Port.kMXP);
     private long prevTime = 0;
 
+    private double startpoint;
+
     public IMUSubsystem() {
         prevTime = 0;
 
@@ -24,11 +26,15 @@ public class IMUSubsystem extends SubsystemBase {
     }
 
     public double getRoll() {
-        return ahrs.getRoll();
+        return ahrs.getRoll() - startpoint;
     }
 
     public double getPitch() {
         return ahrs.getPitch();
+    }
+
+    public void reset() {
+        startpoint = ahrs.getRoll();
     }
 
     @Override

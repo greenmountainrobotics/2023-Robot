@@ -25,7 +25,7 @@ public class BalanceCommand extends CommandBase {
         imu = imusb;
         motor = tank;
         addRequirements(imusb, tank);
-        setpoint = startpoint;
+        setpoint = 0.0; //TODO: AAAAAAAAAAAAAAAAAA
     }
 
     @Override
