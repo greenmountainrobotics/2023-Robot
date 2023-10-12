@@ -44,11 +44,11 @@ public class JoystickDriveCommand extends CommandBase {
     public void execute() {
         var speed = DifferentialDrive.arcadeDriveIK(
                 powerCurve(
-                        Math.abs(joystick.getRawAxis(1)) > 0.1 ? joystick.getRawAxis(1) : 0),
+                        Math.abs(joystick.getRawAxis(0)) > 0.1 ? joystick.getRawAxis(0) : 0),
                 // powerCurve(
                 // Math.abs(joystick.getRawAxis(2)) > 0.2 ? joystick.getRawAxis(2) : 0),
                 powerCurve(
-                        Math.abs(joystick.getRawAxis(0)) > 0.1 ? joystick.getRawAxis(0) : 0),
+                        Math.abs(joystick.getRawAxis(1)) > 0.1 ? joystick.getRawAxis(1) : 0),
                 false);
 
         boolean forward = true; // joystick.getRawAxis(3) < 0;

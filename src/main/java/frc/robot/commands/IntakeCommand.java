@@ -10,17 +10,21 @@ import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
 import frc.robot.subsystems.IntakeSubsystem;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import frc.robot.subsystems.PneumaticsSubsystem;
+
 import static frc.robot.Constants.DriveConstants.*;
 
 public class IntakeCommand extends CommandBase {
     @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
     private final IntakeSubsystem intake;
     private final CommandXboxController controller;
+    private final PneumaticsSubsystem pneumaticsSubsystem;
 
-    public IntakeCommand(IntakeSubsystem intake, CommandXboxController controller) {
+    public IntakeCommand(IntakeSubsystem intake, CommandXboxController controller, PneumaticsSubsystem pneumaticsSubsystem) {
         this.intake = intake;
         this.controller = controller;
-        addRequirements(intake);
+        this.pneumaticsSubsystem = pneumaticsSubsystem;
+        addRequirements(intake, pneumaticsSubsystem);
     }
 
     @Override
@@ -35,6 +39,7 @@ public class IntakeCommand extends CommandBase {
         /*
          * return ((-joystick.getRawAxis(3) + 1) / 2)
          */ return MAX_SPEED_INTAKE
+                * (controller.a().getAsBoolean() || pneumaticsSubsystem.getSolenoidState() == PneumaticsSubsystem.intakeUpState ? 1.0 : 0.4)
                 * SmartDashboard.getNumber("Max Speed Outtake (dashboard)", 1.0);
     }
 
@@ -42,6 +47,7 @@ public class IntakeCommand extends CommandBase {
         /*
          * return ((-joystick.getRawAxis(3) + 1) / 2)
          */ return MAX_SPEED_INTAKE
+                * 0.4
                 * SmartDashboard.getNumber("Max Speed Intake (dashboard)", 1.0);
     }
 
