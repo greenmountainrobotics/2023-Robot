@@ -29,7 +29,7 @@ public class IntakeCommand extends CommandBase {
 
     @Override
     public void initialize() {
-        SmartDashboard.putNumber("Max Speed Intake (dashboard)", 0.4);
+        SmartDashboard.putNumber("Max Speed Intake (dashboard)", 0.2);
         SmartDashboard.putNumber("Max Speed Outtake (dashboard)", 1);
 
     }
