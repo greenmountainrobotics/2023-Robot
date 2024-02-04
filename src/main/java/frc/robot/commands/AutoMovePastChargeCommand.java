@@ -1,13 +1,13 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.IMUSubsystem;
 import frc.robot.subsystems.TankDriveSubsystem;
 import static frc.robot.Constants.AutoConstants.ANGLESTOP;
 
 
-public class AutoMovePastChargeCommand extends CommandBase {
+public class AutoMovePastChargeCommand extends Command {
     private final IMUSubsystem iMUSubsystem;
     private final TankDriveSubsystem tankDriveSubsystem;
     private double initialAngle;

@@ -2,7 +2,7 @@ package frc.robot.subsystems;
 
 
 import edu.wpi.first.wpilibj.Servo;
-import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import static frc.robot.Constants.DriveConstants.*;
@@ -24,21 +24,21 @@ public class WeekZeroGrabberSubsystem extends SubsystemBase {
         rightServo.set(amt);
     }
 
-    public CommandBase stopCommand() {
+    public Command stopCommand() {
         return this.runOnce(() -> {
             setLeftServo(0.5);
             setRightServo(0.5);
         });
     }
 
-    public CommandBase startInCommand() {
+    public Command startInCommand() {
         return runOnce(() -> {
             setRightServo(0);
             setLeftServo(1);
         });
     }
 
-    public CommandBase startOutCommand() {
+    public Command startOutCommand() {
         return runOnce(() -> {
             setRightServo(1);
             setLeftServo(0);

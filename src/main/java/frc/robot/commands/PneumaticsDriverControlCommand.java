@@ -12,9 +12,9 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.subsystems.IMUSubsystem;
 import frc.robot.subsystems.PneumaticsSubsystem;
 import frc.robot.subsystems.TankDriveSubsystem;
-import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.Command;
 
-public class PneumaticsDriverControlCommand extends CommandBase {
+public class PneumaticsDriverControlCommand extends Command {
 
     private PneumaticsSubsystem pneumaticsSubsystem;
     private CommandXboxController controller;

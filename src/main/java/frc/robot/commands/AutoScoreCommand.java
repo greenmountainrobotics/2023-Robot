@@ -1,13 +1,13 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.TankDriveSubsystem;
 import java.time.Clock;
 import static frc.robot.Constants.AutoConstants.*;
 
-public class AutoScoreCommand extends CommandBase {
+public class AutoScoreCommand extends Command {
     private final IntakeSubsystem intakeSubsystem;
     private final TankDriveSubsystem tankDriveSubsystem;
     private long startTime;

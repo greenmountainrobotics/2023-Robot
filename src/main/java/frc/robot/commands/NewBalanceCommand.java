@@ -10,9 +10,9 @@ import static frc.robot.Constants.AutoConstants.*;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.subsystems.IMUSubsystem;
 import frc.robot.subsystems.TankDriveSubsystem;
-import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.Command;
 
-public class NewBalanceCommand extends CommandBase {
+public class NewBalanceCommand extends Command {
 
     IMUSubsystem imu;
     TankDriveSubsystem motor;

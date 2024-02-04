@@ -11,9 +11,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.subsystems.IMUSubsystem;
 import frc.robot.subsystems.TankDriveSubsystem;
 import edu.wpi.first.math.controller.PIDController;
-import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.Command;
 
-public class BalanceCommand extends CommandBase {
+public class BalanceCommand extends Command {
 
     PIDController pid;
     IMUSubsystem imu;
